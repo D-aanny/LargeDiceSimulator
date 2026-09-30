@@ -6,9 +6,13 @@
 #include <vector>
 
 class DiceSimulator {
-
 public:
-    void runMultipleTrials(
+    struct SimulationResult {
+        double triplePercentage{};
+        double doubleMaxPercentage{};
+    };
+
+    SimulationResult runMultipleTrials(
         int numd4,
         int numd6,
         int numd8,
@@ -16,7 +20,7 @@ public:
         int numd12,
         int numd20,
         int numTrials
-        );
+    );
 
     std::array<std::string, 6> dieLabels{
         "d4",
@@ -28,9 +32,7 @@ public:
     };
 
 private:
-    std::mt19937 mt;
-    // std::random_device rd;
-    // std::mt19937 mt(rd());
+    std::mt19937 mt{std::random_device{}()};
 
     int rollRandNum(int dieSize);
 
@@ -44,14 +46,14 @@ private:
     );
 
     bool hasTripleOrMore(
-        const std::vector<int>& nums,
+        const std::vector<int> &nums,
         int minNum
-        );
+    );
 
     bool hasDoubleMax(
-        const std::vector<int>& nums,
+        const std::vector<int> &nums,
         int goalMax
-        );
+    );
 };
 
 #endif //LARGEDIESIMULATOR_DICESIM_H
