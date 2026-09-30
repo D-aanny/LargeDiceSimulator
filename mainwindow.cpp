@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "dicesimulator.h"
 #include <QMainWindow>
 #include <QCheckBox>
 #include <QComboBox>
@@ -12,6 +13,8 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     setupUI();
+
+    simulator.runMultipleTrials(2, 2, 2, 0, 0, 0, 200);
 }
 
 // TODO: Link internal logic to existing UI elements
@@ -46,31 +49,27 @@ void MainWindow::setupUI()
     mainLayout->addStretch();
 }
 
-void MainWindow::setupDiceInputs() const {
+void MainWindow::setupDiceInputs() {
+
     auto *formLayout = new QFormLayout;
 
-    auto *d4Input = new QLineEdit;
-    auto *d6Input = new QLineEdit;
-    auto *d8Input = new QLineEdit;
-    auto *d10Input = new QLineEdit;
-    auto *d12Input = new QLineEdit;
-    auto *d20Input = new QLineEdit;
-
-    d4Input->setPlaceholderText("d4");
-    d6Input->setPlaceholderText("d6");
-    d8Input->setPlaceholderText("d8");
-    d10Input->setPlaceholderText("d10");
-    d12Input->setPlaceholderText("d12");
-    d20Input->setPlaceholderText("d20");
+    for (int i = 0; i < diceInputs.size(); i++) {
+        diceInputs[i] = new QLineEdit;
+        diceInputs[i]->setPlaceholderText(simulator.dieLabels[i].data());
+    }
+    // for (QLineEdit *diceInput : diceInputs) {
+    //     diceInput = new QLineEdit;
+    //     diceInput->setPlaceholderText(simulator.dieLabels[i].data());
+    // }
 
     QLineEdit *inputs[] =
     {
-        d4Input,
-        d6Input,
-        d8Input,
-        d10Input,
-        d12Input,
-        d20Input
+        diceInputs[0],
+        diceInputs[1],
+        diceInputs[2],
+        diceInputs[3],
+        diceInputs[4],
+        diceInputs[5]
     };
 
     for (QLineEdit *input : inputs)
@@ -79,15 +78,11 @@ void MainWindow::setupDiceInputs() const {
         input->setValidator(new QIntValidator(input));
     }
 
-    formLayout->setHorizontalSpacing(10);
-    formLayout->setVerticalSpacing(10);
+    formLayout->setSpacing(10);
 
-    formLayout->addRow("d4:", d4Input);
-    formLayout->addRow("d6:", d6Input);
-    formLayout->addRow("d8:", d8Input);
-    formLayout->addRow("d10:", d10Input);
-    formLayout->addRow("d12:", d12Input);
-    formLayout->addRow("d20:", d20Input);
+    for (int i = 0; i < diceInputs.size(); i++) {
+        formLayout->addRow((simulator.dieLabels[i] + ":").data(), diceInputs[i]);
+    }
 
     mainLayout->addLayout(formLayout);
 

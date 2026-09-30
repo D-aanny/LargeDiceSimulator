@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include <QVBoxLayout>
+#include <QLineEdit>
+#include <array>
+
+#include "dicesimulator.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -12,11 +16,15 @@ public:
 
 private:
     void setupUI();
-    void setupDiceInputs() const;
+    void setupDiceInputs();
     void setupCheckboxes();
     void setupButton() const;
 
     QVBoxLayout *mainLayout{};
+
+    std::array<QLineEdit*, 6> diceInputs{};
+
+    DiceSimulator simulator{};
 };
 
 #endif //LARGEDIESIMULATOR_MAINWINDOW_H

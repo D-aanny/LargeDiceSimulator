@@ -8,6 +8,9 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_executable(LargeDieSimulator main.cpp
         mainwindow.cpp
-        mainwindow.h)
+        mainwindow.h
+        dicesimulator.cpp
+        dicesimulator.h
+)
 
 target_link_libraries(LargeDieSimulator PRIVATE Qt6::Widgets)
