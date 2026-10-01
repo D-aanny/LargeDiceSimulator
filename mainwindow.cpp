@@ -57,7 +57,7 @@ void MainWindow::setupDiceInputs() {
 
     for (int i = 0; i < diceInputs.size(); i++) {
         diceInputs[i] = new QLineEdit;
-        diceInputs[i]->setPlaceholderText(simulator.dieLabels[i].data());
+        diceInputs[i]->setPlaceholderText("0");
 
         diceInputs[i]->setMaximumWidth(65);
         diceInputs[i]->setValidator(new QIntValidator(0, 1000000, diceInputs[i]));
