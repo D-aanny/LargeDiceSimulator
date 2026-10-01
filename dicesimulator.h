@@ -5,11 +5,39 @@
 #include <array>
 #include <vector>
 
+struct SimulationSettings {
+    bool checkSameNumber = false;
+    int sameNumberCount = 3;
+    int sameNumberMinimum = 0;
+
+    bool checkMaximum = false;
+    int maximumCount = 2;
+
+    enum class MaximumMode {
+        HighestDie,
+        MostNumerousDie,
+        D4,
+        D6,
+        D8,
+        D10,
+        D12,
+        D20,
+        Combined
+    };
+
+    MaximumMode maximumMode = MaximumMode::HighestDie;
+};
+
+// TODO: Add and implement a new struct for dice rolls that includes the value rolled along with the type of die rolled
+
 class DiceSimulator {
 public:
     struct SimulationResult {
-        double triplePercentage{};
-        double doubleMaxPercentage{};
+        bool calculatedSameNumber = false;
+        double sameNumberPercentage{};
+
+        bool calculatedMaximum = false;
+        double maximumPercentage{};
     };
 
     SimulationResult runMultipleTrials(
@@ -19,7 +47,8 @@ public:
         int numd10,
         int numd12,
         int numd20,
-        int numTrials
+        int numTrials,
+        const SimulationSettings &settings
     );
 
     std::array<std::string, 6> dieLabels{
@@ -45,14 +74,35 @@ private:
         int numd20
     );
 
-    bool hasTripleOrMore(
+    int getMostNumerousDieSize(
+        int numd4,
+        int numd6,
+        int numd8,
+        int numd10,
+        int numd12,
+        int numd20
+    );
+
+    int determineMaximumValue(
+        int numd4,
+        int numd6,
+        int numd8,
+        int numd10,
+        int numd12,
+        int numd20,
+        SimulationSettings::MaximumMode mode
+    );
+
+    bool checkSameNumberRolled(
         const std::vector<int> &nums,
+        int numAmountNeeded,
         int minNum
     );
 
     bool hasDoubleMax(
         const std::vector<int> &nums,
-        int goalMax
+        int goalMax,
+        int amountNeeded
     );
 };
 
