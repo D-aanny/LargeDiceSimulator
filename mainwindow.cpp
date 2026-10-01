@@ -338,12 +338,12 @@ void MainWindow::rollDice() {
 
     if (result.calculatedSameNumber) {
         output += QString("Duplicate rolls: %1%\n")
-        .arg(result.sameNumberPercentage, 0, 'f', 2);
+                .arg(result.sameNumberPercentage, 0, 'f', 2);
     }
 
     if (result.calculatedMaximum) {
         output += QString("Maximum rolls: %1%\n")
-        .arg(result.maximumPercentage, 0, 'f', 2);
+                .arg(result.maximumPercentage, 0, 'f', 2);
     }
 
     // if (output.isEmpty()) {
