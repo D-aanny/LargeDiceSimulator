@@ -104,6 +104,7 @@ void MainWindow::setupCheckboxes() {
     checkbox1Main->addWidget(preNumBoxLabel1);
 
     sameRollNumBox = new QLineEdit("3");
+    sameRollNumBox->setValidator(new QIntValidator(2, 1000000, sameRollNumBox));
     sameRollNumBox->setFixedWidth(30);
     checkbox1Main->addWidget(sameRollNumBox);
 
@@ -167,9 +168,8 @@ void MainWindow::setupCheckboxes() {
     auto *preLabel = new QLabel("I roll");
     checkbox2Main->addWidget(preLabel);
 
-
     maxRollNumBox = new QLineEdit("2");
-
+    maxRollNumBox->setValidator(new QIntValidator(1, 1000000, maxRollNumBox));
     maxRollNumBox->setFixedWidth(30);
 
     checkbox2Main->addWidget(maxRollNumBox);
@@ -241,7 +241,6 @@ void MainWindow::setupCheckboxes() {
 }
 
 // TODO: Add "Rolling..." text animation using a background thread for processing
-//TODO: Make results depend on state of checkboxes and user input in those sections
 void MainWindow::setupButton() {
     auto *button = new QPushButton("Roll Dice");
 
@@ -257,6 +256,58 @@ void MainWindow::setupButton() {
 
 void MainWindow::rollDice() {
     std::array<int, 6> diceCounts{};
+    SimulationSettings settings;
+    QString output;
+
+    settings.checkSameNumber = sameRollCheckbox->isChecked();
+    settings.checkMaximum = maxRollCheckbox->isChecked();
+
+    // If neither checkbox is selected, return without running any trials
+    if (settings.checkSameNumber == false && settings.checkMaximum == false) {
+        output = "No conditions selected.";
+        resultLabel->setText(output);
+        return;
+    }
+
+    if (settings.checkSameNumber) {
+        settings.sameNumberCount = sameRollNumBox->text().toInt();
+        settings.sameNumberMinimum = sameRollNumBox2->text().toInt();
+    }
+
+    if (settings.checkMaximum) {
+        settings.maximumCount = maxRollNumBox->text().toInt();
+    }
+
+    if (settings.checkMaximum) {
+        QString choice = maxRollDropdown->currentText();
+
+        if (choice == "Highest die size")
+            settings.maximumMode = SimulationSettings::MaximumMode::HighestDie;
+
+        else if (choice == "Most numerous die size")
+            settings.maximumMode = SimulationSettings::MaximumMode::MostNumerousDie;
+
+        else if (choice == "d4")
+            settings.maximumMode = SimulationSettings::MaximumMode::D4;
+
+        else if (choice == "d6")
+            settings.maximumMode = SimulationSettings::MaximumMode::D6;
+
+        else if (choice == "d8")
+            settings.maximumMode = SimulationSettings::MaximumMode::D8;
+
+        else if (choice == "d10")
+            settings.maximumMode = SimulationSettings::MaximumMode::D10;
+
+        else if (choice == "d12")
+            settings.maximumMode = SimulationSettings::MaximumMode::D12;
+
+        else if (choice == "d20")
+            settings.maximumMode = SimulationSettings::MaximumMode::D20;
+
+        else if (choice == "All (combined)")
+            settings.maximumMode = SimulationSettings::MaximumMode::Combined;
+    }
 
     for (int i = 0; i < diceInputs.size(); i++) {
         diceCounts[i] = diceInputs[i]->text().toInt();
@@ -282,15 +333,22 @@ void MainWindow::rollDice() {
         diceCounts[3], //d10
         diceCounts[4], //d12
         diceCounts[5], //d20
-        numTrials);
+        numTrials,
+        settings);
 
-    resultLabel->setText(
-        QString(
-            "Results:\n"
-            "Triple or more: %1%\n"
-            "Double maximum: %2%"
-        )
-        .arg(result.triplePercentage, 0, 'f', 2)
-        .arg(result.doubleMaxPercentage, 0, 'f', 2)
-    );
+    if (result.calculatedSameNumber) {
+        output += QString("Duplicate rolls: %1%\n")
+        .arg(result.sameNumberPercentage, 0, 'f', 2);
+    }
+
+    if (result.calculatedMaximum) {
+        output += QString("Maximum rolls: %1%\n")
+        .arg(result.maximumPercentage, 0, 'f', 2);
+    }
+
+    // if (output.isEmpty()) {
+    //     output = "No conditions selected.";
+    // }
+
+    resultLabel->setText(output);
 }
