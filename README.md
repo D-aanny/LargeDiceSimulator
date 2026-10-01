@@ -1,8 +1,8 @@
-# LargeDieSimulator
+# LargeDiceSimulator
 For rolling very large amounts of very specific dice with customizable conditions
 
 ## About
-LargeDieSimulator is a C++/Qt 6 application intended for situations where manually calculating probabilities becomes impractical. The goal is to provide a flexible tool for exploring complex dice scenarios through large-scale simulation.
+LargeDiceSimulator is a C++/Qt 6 application intended for situations where manually calculating probabilities becomes impractical. The goal is to provide a flexible tool for exploring complex dice scenarios through large-scale simulation.
 
 ## Current Status
 **Work in progress**
