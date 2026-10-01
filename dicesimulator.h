@@ -74,7 +74,7 @@ private:
         int numd20
     );
 
-    int getMostNumerousDieSize(
+    static int getMostNumerousDieSize(
         int numd4,
         int numd6,
         int numd8,
@@ -83,7 +83,7 @@ private:
         int numd20
     );
 
-    int determineMaximumValue(
+    static int determineMaximumValue(
         int numd4,
         int numd6,
         int numd8,
@@ -93,13 +93,13 @@ private:
         SimulationSettings::MaximumMode mode
     );
 
-    bool checkSameNumberRolled(
+    static bool checkSameNumberRolled(
         const std::vector<int> &nums,
         int numAmountNeeded,
         int minNum
     );
 
-    bool hasDoubleMax(
+    static bool hasDoubleMax(
         const std::vector<int> &nums,
         int goalMax,
         int amountNeeded
