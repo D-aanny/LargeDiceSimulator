@@ -5,6 +5,11 @@
 #include <array>
 #include <vector>
 
+struct RollResult {
+    int dieSize;
+    int rolledValue;
+};
+
 struct SimulationSettings {
     bool checkSameNumber = false;
     int sameNumberCount = 3;
@@ -13,7 +18,7 @@ struct SimulationSettings {
     bool checkMaximum = false;
     int maximumCount = 2;
 
-    enum class MaximumMode {
+    enum class MaxValueDropdown {
         HighestDie,
         MostNumerousDie,
         D4,
@@ -25,7 +30,7 @@ struct SimulationSettings {
         Combined
     };
 
-    MaximumMode maximumMode = MaximumMode::HighestDie;
+    MaxValueDropdown maxValueDropdown = MaxValueDropdown::HighestDie;
 };
 
 // TODO: Add and implement a new struct for dice rolls that includes the value rolled along with the type of die rolled
@@ -33,8 +38,8 @@ struct SimulationSettings {
 class DiceSimulator {
 public:
     struct SimulationResult {
-        bool calculatedSameNumber = false;
-        double sameNumberPercentage{};
+        bool calculatedDuplicate = false;
+        double duplicatePercentage{};
 
         bool calculatedMaximum = false;
         double maximumPercentage{};
@@ -65,7 +70,7 @@ private:
 
     int rollRandNum(int dieSize);
 
-    std::vector<int> runSingleTrial(
+    std::vector<RollResult> runSingleTrial(
         int numd4,
         int numd6,
         int numd8,
@@ -90,19 +95,20 @@ private:
         int numd10,
         int numd12,
         int numd20,
-        SimulationSettings::MaximumMode mode
+        SimulationSettings::MaxValueDropdown mode
     );
 
-    static bool checkSameNumberRolled(
-        const std::vector<int> &nums,
+    static bool checkDuplicateRolls(
+        const std::vector<RollResult> &rolls,
         int numAmountNeeded,
         int minNum
     );
 
-    static bool hasDoubleMax(
-        const std::vector<int> &nums,
-        int goalMax,
-        int amountNeeded
+    static bool checkMaximumRolls(
+        const std::vector<RollResult> &rolls,
+        int goalDieSize,
+        int amountNeeded,
+        bool combined
     );
 };
 
