@@ -282,31 +282,31 @@ void MainWindow::rollDice() {
         QString choice = maxRollDropdown->currentText();
 
         if (choice == "Highest die size")
-            settings.maximumMode = SimulationSettings::MaximumMode::HighestDie;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::HighestDie;
 
         else if (choice == "Most numerous die size")
-            settings.maximumMode = SimulationSettings::MaximumMode::MostNumerousDie;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::MostNumerousDie;
 
         else if (choice == "d4")
-            settings.maximumMode = SimulationSettings::MaximumMode::D4;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::D4;
 
         else if (choice == "d6")
-            settings.maximumMode = SimulationSettings::MaximumMode::D6;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::D6;
 
         else if (choice == "d8")
-            settings.maximumMode = SimulationSettings::MaximumMode::D8;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::D8;
 
         else if (choice == "d10")
-            settings.maximumMode = SimulationSettings::MaximumMode::D10;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::D10;
 
         else if (choice == "d12")
-            settings.maximumMode = SimulationSettings::MaximumMode::D12;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::D12;
 
         else if (choice == "d20")
-            settings.maximumMode = SimulationSettings::MaximumMode::D20;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::D20;
 
         else if (choice == "All (combined)")
-            settings.maximumMode = SimulationSettings::MaximumMode::Combined;
+            settings.maxValueDropdown = SimulationSettings::MaxValueDropdown::Combined;
     }
 
     for (int i = 0; i < diceInputs.size(); i++) {
@@ -336,19 +336,15 @@ void MainWindow::rollDice() {
         numTrials,
         settings);
 
-    if (result.calculatedSameNumber) {
+    if (result.calculatedDuplicate) {
         output += QString("Duplicate rolls: %1%\n")
-                .arg(result.sameNumberPercentage, 0, 'f', 2);
+                .arg(result.duplicatePercentage, 0, 'f', 2);
     }
 
     if (result.calculatedMaximum) {
         output += QString("Maximum rolls: %1%\n")
                 .arg(result.maximumPercentage, 0, 'f', 2);
     }
-
-    // if (output.isEmpty()) {
-    //     output = "No conditions selected.";
-    // }
 
     resultLabel->setText(output);
 }
