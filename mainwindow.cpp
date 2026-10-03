@@ -118,7 +118,8 @@ void MainWindow::setupCheckboxes() {
     auto *preNumBoxLabel2 = new QLabel("Number must be greater than or equal to:");
     checkbox1Sub->addWidget(preNumBoxLabel2);
 
-    sameRollNumBox2 = new QLineEdit("0");
+    sameRollNumBox2 = new QLineEdit();
+    sameRollNumBox2->setPlaceholderText("0");
     sameRollNumBox2->setFixedWidth(30);
     checkbox1Sub->addWidget(sameRollNumBox2);
 
