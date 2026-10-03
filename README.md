@@ -7,7 +7,7 @@ LargeDiceSimulator is a C++/Qt 6 application intended for situations where manua
 ## Current Status
 **Work in progress**
 
-The application has full functionality of the originally intended version of the project available through the GUI. That is to say, the current output always displays data pertaining to rolling 3x of the same number, and 2x of the maximum possible number. The ability to tweak which results are displayed is in progress, and the following list of features are planned additions:
+The application has full functionality of the originally intended version of the project available through the GUI. There is a base level of customizability that aligns with the original scope, but I plan to overhaul the design to allow for much more freedom in setting conditions. The following list of features are planned additions:
 
 - Ability to add custom conditions through a dropdown menu or "click to add" style prompt, rather than a static checkbox menu. This will allow for much more customizability, and also allow for multiple of the same type of condition to be tracked at once (For example, if you want to display the percentage for rolling 3x of the same number, and 4x of the same number, within the same set of trials).
 - Ability to export/import or otherwise save conditions, for those that have a consistent set of parameters or base that they like to work off of.
