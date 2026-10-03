@@ -42,8 +42,8 @@ std::vector<RollResult> DiceSimulator::runSingleTrial(
 
 bool DiceSimulator::checkDuplicateRolls(
     const std::vector<RollResult> &rolls,
-    int numAmountNeeded,
-    int minNum) {
+    const int numAmountNeeded,
+    const int minNum) {
     std::unordered_map<int, int> countMap;
 
     for (RollResult roll: rolls) {
@@ -62,7 +62,7 @@ bool DiceSimulator::checkMaximumRolls(
     const std::vector<RollResult> &rolls,
     const int goalDieSize,
     const int amountNeeded,
-    bool combined) {
+    const bool combined) {
     int count = 0;
 
     for (RollResult roll: rolls) {
@@ -85,9 +85,9 @@ int DiceSimulator::getMostNumerousDieSize(int numd4, int numd6, int numd8, int n
     int mostNumerousCount = 0;
     int mostNumerousDie = 4;
 
-    std::array<int, 6> counts = {numd4, numd6, numd8, numd10, numd12, numd20};
+    const std::array<int, 6> counts = {numd4, numd6, numd8, numd10, numd12, numd20};
 
-    std::array<int, 6> sizes = {4, 6, 8, 10, 12, 20};
+    const std::array<int, 6> sizes = {4, 6, 8, 10, 12, 20};
 
     for (int i = 0; i < counts.size(); i++) {
         if (counts[i] > mostNumerousCount) {
