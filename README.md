@@ -16,5 +16,5 @@ The application has full functionality of the originally intended version of the
 - Add a "Rolling..." dot progression animation while results are pending. Just to give the user something to look at and be confident that the application hasn't crashed or frozen while running long trials. This also enforces better backend logic handling by forcing the dice rolls to take place within their own thread so the GUI can still update in the meantime.
 - (Maybe) Add a way to export results into some sort of basic spreadsheet file that holds the parameters used and tracked outcomes. For saving and easy sharing of data. This may be over the top and not really needed when most reasonable simulations can run in about 1 second, but the whole point of this application is to account for insane scenarios, so a way to save results outside of a screenshot would be nice.
 
-![Current GUI](CurrentGUI.png)
-![Current GUI Sample Results](CurrentGUI_SampleResults.png)
+![Current GUI](images/CurrentGUI.png)
+![Current GUI Sample Results](images/CurrentGUI_SampleResults.png)
