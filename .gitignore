@@ -1,0 +1,15 @@
+# Meson build directories
+buildDir/
+build-release/
+build-debug/
+package/
+
+#AppImage packaging
+AppDir/
+*.AppImage
+
+#Local packaging tools
+tools/
+
+#IDE files
+.idea/
